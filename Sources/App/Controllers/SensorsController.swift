@@ -45,7 +45,13 @@ final class SensorsController: RouteCollection {
                 .all()
                 .flatMap({ sensorsData -> EventLoopFuture<View> in
                     let lastSensor = (sensorsData as [Sensors]).last
-                    return req.view.render("sensors", SensorsContext(title: "Weather", data: sensorsData, lastCO2: lastSensor?.co2 ?? 0, lastPre: lastSensor?.pressure ?? 0, lastTem: lastSensor?.temp ?? 0, lastHum: lastSensor?.humidity ?? 0))
+                    return req.view.render("sensors",
+                                           SensorsContext(title: "Weather",
+                                                          data: sensorsData,
+                                                          lastCO2: lastSensor?.co2 ?? 0,
+                                                          lastPre: lastSensor?.pressure ?? 0,
+                                                          lastTem: lastSensor?.temp ?? 0,
+                                                          lastHum: lastSensor?.humidity ?? 0))
                 })
     }
     

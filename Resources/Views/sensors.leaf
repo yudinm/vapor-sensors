@@ -1,6 +1,25 @@
 <html>
     <head>
         <title>#(title)</title>
+        <style type="text/css">
+	        .container {
+				display: flex; /* or inline-flex */
+				flex-flow: column;
+				justify-content: left;
+			}
+			.item {
+				width: 60%;
+			    margin-left: 5%;
+			    margin-right: 5%;
+			}
+			.tables {
+				width: 320px;
+			}
+			.graphics {
+				width: 768px;
+			    height: 450px;
+			}
+        </style>
         <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
         <script type="text/javascript">
             google.charts.load('current', {'packages':['corechart']});
@@ -15,9 +34,9 @@
             function drawChartCO2() {
                 var data = google.visualization.arrayToDataTable([
                                                                   ['Date', 'co2'],
-                                                                  #for(record in data) {
+                                                                  #for(record in data):
                                                                   [dateMos(#(record.createdAt)),  #(record.co2)],
-                                                                  }
+                                                                  #endfor
                                                                   ]);
                                                                   
                                                                   var options = {
@@ -37,9 +56,9 @@
             function drawChartP() {
                 var data = google.visualization.arrayToDataTable([
                                                                   ['Date', 'P'],
-                                                                  #for(record in data) {
+                                                                  #for(record in data):
                                                                   [dateMos(#(record.createdAt)), #(record.pressure)],
-                                                                  }
+                                                                  #endfor
                                                                   ]);
                                                                   
                                                                   var options = {
@@ -59,9 +78,9 @@
             function drawChart() {
                 var data = google.visualization.arrayToDataTable([
                                                                   ['Date', 'T', 'H'],
-                                                                  #for(record in data) {
+                                                                  #for(record in data):
                                                                   [dateMos(#(record.createdAt)), #(record.temp),  #(record.humidity)],
-                                                                  }
+                                                                  #endfor
                                                                   ]);
                                                                   
                                                                   var options = {
@@ -80,30 +99,32 @@
         </script>
     </head>
     <body>
-        <table id="last_values">
-            <th>
-                <td>CO2</td>
-                <td>Pre</td>
-                <td>Tem</td>
-                <td>Hum</td>
-            </th>
-            <tr>
-                <td>#(lastCO2)</td>
-                <td>#(lastPre)</td>
-                <td>#(lastTem)</td>
-                <td>#(lastHum)</td>
-            </tr>
-        </table>
-        <table id="limits">
-            <tr>
-                <td><a href="?lim=10000">10000</a></td>
-                <td><a href="?lim=1024">1024</a></td>
-                <td><a href="?lim=100">100</a></td>
-            </tr>
-        </table>
-        <div id="curve_chart_co2" style="width: 1024px; height: 500px"></div>
-        <div id="curve_chart_p" style="width: 1024px; height: 500px"></div>
-        <div id="curve_chart" style="width: 1024px; height: 500px"></div>
+	    <div class="container">
+	        <table id="last_values" style="text-align: center;" border="1" class="item tables">
+	            <tr>
+	                <th>CO2</th>
+	                <th>Pre</th>
+	                <th>Tem</th>
+	                <th>Hum</th>
+	            </tr>
+	            <tr>
+	                <td>#(lastCO2)</td>
+	                <td>#(lastPre)</td>
+	                <td>#(lastTem)</td>
+	                <td>#(lastHum)</td>
+	            </tr>
+	        </table>
+	        <table id="limits" border="1" class="item tables">
+	            <tr>
+	                <td><a href="?l=10000">10000</a></td>
+	                <td><a href="?l=1024">1024</a></td>
+	                <td><a href="?l=100">100</a></td>
+	            </tr>
+	        </table>
+	        <div id="curve_chart_co2" class="item graphics"></div>
+	        <div id="curve_chart_p" class="item graphics"></div>
+	        <div id="curve_chart" class="item graphics"></div>
+        </div>
         
     </body>
 </html>
